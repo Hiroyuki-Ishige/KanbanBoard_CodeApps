@@ -1,0 +1,12 @@
+{
+  "appId": "3b04fc60-56d6-4fca-a417-c370bd3c70af",
+  "appDisplayName": "App test-1",
+  "description": null,
+  "environmentId": "a0bb903c-5484-e1f5-992a-234929703287",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "logoPath": "Default",
+  "localAppUrl": "http://localhost:3000/",
+  "connectionReferences": {},
+  "databaseReferences": {}
+}

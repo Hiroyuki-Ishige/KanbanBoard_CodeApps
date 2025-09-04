@@ -15,5 +15,9 @@ ReactDom.createRoot(document.getElementById("root")!).render(
   </StrictMode>
 );
 
-//TODO change screen size at PowerApps deployment screen
-//TODO Push to git hub
+//TODO show login user from Power Platform data source
+//TODO connect to Dataverse to store tasks
+//TODO add more features to kanban board (e.g. due dates, priorities, etc.)
+//TODO add more authentication methods (e.g. Google, Facebook, etc.)
+
+//References: Youtube https://www.youtube.com/watch?v=UBFgFNYbSTA

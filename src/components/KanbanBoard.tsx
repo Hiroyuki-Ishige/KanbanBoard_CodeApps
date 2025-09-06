@@ -16,6 +16,8 @@ function KanbanBoard() {
     done: { name: "Done", items: [] },
   });
 
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
   // Function to fetch tasks from Supabase
   const fetchTasks = async () => {
     // Get the current user
@@ -58,7 +60,14 @@ function KanbanBoard() {
 
   // Fetch tasks when the component mounts
   useEffect(() => {
-    fetchTasks();
+    const loadInitialData = async () => {
+      await fetchTasks();
+      // Set initial render to false after a small delay to allow animations
+      setTimeout(() => {
+        setIsInitialRender(false);
+      }, 1500); // Adjust timing as needed
+    };
+    loadInitialData();
   }, []);
 
   // Define the state for the new task input and the active column
@@ -211,7 +220,8 @@ function KanbanBoard() {
         {/* div to contain SignOut button, logo "React Kanban Board", input box, list of tasks */}
         <div className="flex items-center justify-center flex-col gap-4 w-full max-w-6xl">
           {/* Log-out button */}
-          <div className="flex gap-6 overflow-x-auto pb-6 w-full">
+          {/* Header with user profile and sign out */}
+          <div className="flex justify-between items-center mb-6 w-full">
             <div className="ml-auto">
               <SignOut />
             </div>
@@ -227,7 +237,7 @@ function KanbanBoard() {
             {/* input box */}
             <input
               value={newTask}
-              className="flex-grow bg-zinc-500 rounded-md p-3 w-full text-white"
+              className="flex-grow bg-zinc-500 rounded-md p-3 w-full text-white focus:bg-zinc-500 focus:outline-none focus:ring-0 focus:shadow-none"
               type="text"
               onChange={(e) => setNewTask(e.target.value)}
               placeholder="Add a new task"
@@ -246,7 +256,7 @@ function KanbanBoard() {
                     e.target.value as "todo" | "inProgress" | "done"
                   )
                 }
-                className="p-3 bg-zinc-500 text-white border-0 border-zinc-600 rounded-md ml-2"
+                className="p-3 bg-zinc-500 text-white border-0 border-zinc-600 rounded-md ml-2 hover:bg-zinc-500 focus:bg-zinc-500 focus:outline-none focus:ring-0"
               >
                 {Object.keys(columns).map((columnId) => (
                   <option key={columnId} value={columnId}>
@@ -258,6 +268,7 @@ function KanbanBoard() {
               {/* add button */}
               <button
                 className="p-3 ml-2 rounded-md text-white font-medium bg-gradient-to-r from-blue-300 to-blue-300 hover:from-blue-500 hover:to-blue-500 transition-all duration-500 cursor-pointer"
+                style={{ outline: "none", border: "none" }}
                 onClick={addNewTask}
               >
                 Add
@@ -271,13 +282,19 @@ function KanbanBoard() {
             {Object.keys(columns).map((columnId, columnIndex) => (
               <div
                 key={columnId}
-                className={`flex-shrink-0 w-full sm:w-80 rounded-lg shadow-x1 border-t-4 animate-slide-in ${
+                className={`flex-shrink-0 w-full sm:w-80 rounded-lg shadow-x1 border-t-4 ${
+                  isInitialRender ? "animate-slide-in" : ""
+                } ${
                   columnStyles[columnId as keyof typeof columnStyles].body ?? ""
                 }`}
-                style={{
-                  animationDelay: `${columnIndex * 150}ms`,
-                  animationFillMode: "both",
-                }}
+                style={
+                  isInitialRender
+                    ? {
+                        animationDelay: `${columnIndex * 150}ms`,
+                        animationFillMode: "both",
+                      }
+                    : {}
+                }
                 onDragOver={(e) =>
                   handleDragOver(e, columnId as "todo" | "inProgress" | "done")
                 }
@@ -308,11 +325,17 @@ function KanbanBoard() {
                       (item, index) => (
                         <div
                           key={item.id}
-                          className={`p-4 mb-3 bg-zinc-700 text-white rounded-lg shadow-md cursor-move flex items-center justify-between transform transition-all duration-300 hover:scale-105 hover:shadow-lg animate-slide-in`}
-                          style={{
-                            animationDelay: `${index * 100}ms`,
-                            animationFillMode: "both",
-                          }}
+                          className={`p-4 mb-3 bg-zinc-700 text-white rounded-lg shadow-md cursor-move flex items-center justify-between transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                            isInitialRender ? "animate-slide-in" : ""
+                          }`}
+                          style={
+                            isInitialRender
+                              ? {
+                                  animationDelay: `${index * 100}ms`,
+                                  animationFillMode: "both",
+                                }
+                              : {}
+                          }
                           draggable={true}
                           onDragStart={() =>
                             handleDragStart(
@@ -331,7 +354,8 @@ function KanbanBoard() {
                                 item.id
                               )
                             }
-                            className="text-zinc-500 hover:text-red-400 transition-colors duration-300 w-6 h-6 flex items-center justify-center round-full hover:bg-zinc-600 "
+                            className="text-zinc-500 bg-zinc-800 hover:text-white hover:!bg-red-500 transition-all duration-300 w-6 h-6 flex items-center justify-center rounded-full border-0 outline-none focus:outline-none focus:ring-0 focus:border-0 hover:outline-none hover:ring-0 hover:border-0"
+                            style={{ outline: "none", border: "none" }}
                           >
                             <span className="text-lg cursor-pointer">X</span>
                           </button>

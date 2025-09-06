@@ -42,28 +42,30 @@ function Auth() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="mb-4 flex-grow bg-zinc-500 rounded-md p-3 w-80 text-white"
+          className="mb-4 flex-grow bg-zinc-500 rounded-md p-3 w-80 text-white focus:bg-zinc-500 focus:outline-none focus:ring-0 focus:shadow-none"
         />
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
-          className="mb-4 flex-grow bg-zinc-500 rounded-md p-3 w-80 text-white"
+          className="mb-4 flex-grow bg-zinc-500 rounded-md p-3 w-80 text-white focus:bg-zinc-500 focus:outline-none focus:ring-0 focus:shadow-none"
         />
         <button
           onClick={signUp}
-          className="mb-4 p-3 ml-2 w-36 rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-blue-300 hover:from-blue-500 hover:to-blue-500 transition-all duration-500 cursor-pointer"
+          className="mb-4 p-3 ml-2 w-36 rounded-md text-white font-medium bg-gradient-to-r from-blue-300 to-blue-300 hover:from-blue-500 hover:to-blue-500 focus:outline-none focus:ring-0 focus:shadow-none hover:outline-none transition-colors duration-200 border-0 hover:border-0 focus:border-0 active:outline-none active:border-0 hover:shadow-none active:shadow-none"
+          style={{ outline: "none", border: "none" }}
         >
           Register
         </button>
         <button
           onClick={signIn}
-          className="mb-4 p-3 ml-2 w-36 rounded-md text-white font-medium bg-gradient-to-r from-yellow-500 to-yellow-300 hover:from-yellow-500 hover:to-amber-500 transition-all duration-500 cursor-pointer"
+          className="mb-4 p-3 ml-2 w-36 rounded-md text-white font-medium bg-gradient-to-r from-yellow-500 to-yellow-300 hover:from-amber-500 hover:to-amber-500 focus:outline-none focus:ring-0 focus:shadow-none hover:outline-none transition-colors duration-200 border-0 hover:border-0 focus:border-0 active:outline-none active:border-0 hover:shadow-none active:shadow-none"
+          style={{ outline: "none", border: "none" }}
         >
           Sign In
         </button>
-      </div>
+      </div>  
     </div>
   );
 }

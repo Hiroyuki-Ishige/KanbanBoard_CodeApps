@@ -7,6 +7,17 @@
   "buildEntryPoint": "index.html",
   "logoPath": "Default",
   "localAppUrl": "http://localhost:3000/",
-  "connectionReferences": {},
+  "connectionReferences": {
+    "480b625c-06e1-4d91-8bdf-be39fc0bb125": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+      "displayName": "Office 365 Users",
+      "dataSources": [
+        "office365users"
+      ],
+      "authenticationType": null,
+      "sharedConnectionId": null,
+      "dataSets": {}
+    }
+  },
   "databaseReferences": {}
 }
